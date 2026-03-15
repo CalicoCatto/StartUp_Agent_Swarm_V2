@@ -1,39 +1,49 @@
 # 创业Idea Agent Swarm - 项目指令
 
 ## 项目概述
-这是一个由多个专业Agent组成的创业Idea生成与分析团队。用户提供参考材料（文章、痛点描述、行业趋势）→ 系统主动提出创业idea → 再对这些idea进行全方位分析，最终输出一份详细报告和一份简要总结报告。
+这是一个由多个专业Agent组成的创业Idea生成与分析团队。用户提供参考材料（文章、痛点描述、行业趋势）→ 系统通过**两轮迭代**主动提出创业idea → 再对这些idea进行全方位分析，最终输出一份详细报告和一份简要总结报告。
 
-## 工作流程（5轮）
+核心理念：第二轮生成的idea受益于第一轮的分析洞察，质量更高、方向更精准。
+
+## 工作流程（8轮，两轮迭代）
 
 ```
 轮次0: 参考材料解析 (startup-swarm)
   接收文章/痛点/趋势 → 结构化为"研究简报"
 
-轮次1: 机会扫描 (并行) — Phase A
+轮次1: 机会扫描 (并行)
   domain-expert [扫描模式]: 行业痛点、结构性变化、新兴机会
   market-analyst [扫描模式]: 市场空白、未满足需求、竞争白地
   ux-researcher [扫描模式]: 用户痛点、未被服务的需求、行为变化
 
-轮次2: Idea生成 — Phase A
-  idea-generator: 综合轮次1结果 → 产出恰好5个创业idea → 排序推荐
+轮次2: 第一轮Idea生成 (R1)
+  idea-generator [首轮模式]: 综合轮次1结果 → 产出3-5个创业idea → 排序推荐
 
-轮次3: 深度分析 (并行) — Phase B (针对所有5个idea)
-  每个idea × (tech-architect / business-model / growth-hacker
-  domain-expert [分析模式] / market-analyst [分析模式] / ux-researcher [分析模式])
+轮次3: 第一轮深度分析 (并行)
+  R1每个idea × 8个分析Agent（domain-expert/market-analyst/ux-researcher
+  /tech-architect/business-model/growth-hacker/investor-advisor/legal-compliance）
 
-轮次4: 综合评估 (并行) — Phase B (针对所有5个idea)
-  每个idea × (investor-advisor / legal-compliance)
+轮次4: 第一轮评分汇总 + 经验提炼
+  orchestrator: 汇总R1分析结果 + 评分 + 提炼经验教训
 
-轮次5: 汇总报告 (orchestrator/startup-swarm)
+轮次5: 第二轮Idea生成 (R2)
+  idea-generator [迭代模式]: 输入 = 扫描信号 + R1 idea列表 + R1全量分析 + R1经验教训
+  → 产出3-5个全新idea（不重复R1）
+
+轮次6: 第二轮深度分析 (并行)
+  R2每个idea × 8个分析Agent（同轮次3）
+
+轮次7: 全量汇总报告
+  orchestrator: 两轮所有idea（共6-10个）统一排名 → 生成报告
 ```
 
 ## Agent角色一览
 
 | Agent | 角色 | 职责 | 模式 |
 |-------|------|------|------|
-| startup-swarm | 一键入口 | 自动调度全流程（生成+分析） | - |
+| startup-swarm | 一键入口 | 自动调度全流程（两轮迭代生成+分析） | - |
 | orchestrator | 主协调员 | 分解任务、调度Agent、汇总结论 | - |
-| idea-generator | 创意策略师 | 综合机会信号，生成3-5个创业idea | - |
+| idea-generator | 创意策略师 | 综合机会信号，生成3-5个创业idea | 首轮/迭代双模式 |
 | market-analyst | 市场分析师 | 市场规模、竞争格局、趋势分析 | 扫描/分析双模式 |
 | tech-architect | 技术架构师 | 技术可行性、架构方案、技术壁垒 | - |
 | business-model | 商业模式专家 | 盈利模式、定价策略、商业可行性 | - |
@@ -59,10 +69,11 @@
 
 ## 输出规范
 - 所有报告使用中文
-- **报告结构铁律：先展示全部5个Idea总览和排名 → 再逐个展开分析**
-- 详细报告包含：机会扫描 + 5个Idea总览排名 + 逐个深度分析 + 综合建议
-- 简要报告控制在2000字以内，同样先展示5个Idea再逐个概要分析
-- 所有5个idea都进行完整8维度分析，不省略
+- **报告结构铁律：先展示全部Idea总览和排名 → 再逐个展开分析**
+- 详细报告包含：机会扫描 + 全部Idea总览排名 + 逐个深度分析 + 两轮迭代洞察 + 综合建议
+- 简要报告控制在2000字以内，同样先展示全部Idea再逐个概要分析
+- 两轮所有idea（共6-10个）都进行完整8维度分析，不省略
+- 每个idea标注来源轮次（R1/R2），统一按评分排序
 - 报告保存到 `output/` 目录
 
 ## 使用的工具
