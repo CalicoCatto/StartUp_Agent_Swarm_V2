@@ -15,14 +15,14 @@
   ux-researcher [扫描模式]: 用户痛点、未被服务的需求、行为变化
 
 轮次2: Idea生成 — Phase A
-  idea-generator: 综合轮次1结果 → 产出3-5个创业idea → 排序推荐
+  idea-generator: 综合轮次1结果 → 产出恰好5个创业idea → 排序推荐
 
-轮次3: 深度分析 (并行) — Phase B (针对选中的idea)
-  tech-architect / business-model / growth-hacker
-  domain-expert [分析模式] / market-analyst [分析模式] / ux-researcher [分析模式]
+轮次3: 深度分析 (并行) — Phase B (针对所有5个idea)
+  每个idea × (tech-architect / business-model / growth-hacker
+  domain-expert [分析模式] / market-analyst [分析模式] / ux-researcher [分析模式])
 
-轮次4: 综合评估 (并行) — Phase B
-  investor-advisor / legal-compliance
+轮次4: 综合评估 (并行) — Phase B (针对所有5个idea)
+  每个idea × (investor-advisor / legal-compliance)
 
 轮次5: 汇总报告 (orchestrator/startup-swarm)
 ```
@@ -59,8 +59,10 @@
 
 ## 输出规范
 - 所有报告使用中文
-- 详细报告包含：Idea生成过程 + 深度分析 + 备选Ideas简析
-- 简要报告控制在2000字以内，突出核心结论和行动建议
+- **报告结构铁律：先展示全部5个Idea总览和排名 → 再逐个展开分析**
+- 详细报告包含：机会扫描 + 5个Idea总览排名 + 逐个深度分析 + 综合建议
+- 简要报告控制在2000字以内，同样先展示5个Idea再逐个概要分析
+- 所有5个idea都进行完整8维度分析，不省略
 - 报告保存到 `output/` 目录
 
 ## 使用的工具
